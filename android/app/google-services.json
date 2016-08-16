@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "707305482081",
+    "project_id": "navexp-debug"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707305482081:android:a0211b12b16a9c89",
+        "android_client_info": {
+          "package_name": "com.navexp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707305482081-6ktebnpj7vq71jkgltt8v6u3qguuded2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.navexp",
+            "certificate_hash": "13BBA53B87281EFB2800AE6AA4B4A388278E1900"
+          }
+        },
+        {
+          "client_id": "707305482081-5o1miphkq5uk6qs3n4hc63483d9dpfo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5Ghdihlsjgt_GlNFlERkyiYKOJRnbB0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
