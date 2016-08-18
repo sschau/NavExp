@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.rnfs.RNFSPackage; // <------- add package
+import com.yoloci.fileupload.FileUploadPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNGoogleSigninPackage(),
             new RCTCameraPackage(),
-              new RNFSPackage()
+              new RNFSPackage(),
+              new FileUploadPackage()
       );
     }
   };
