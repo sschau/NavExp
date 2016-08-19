@@ -9,7 +9,7 @@ export default class Storage extends Component {
     constructor(props) {
         super(props);    
         this.state = {                                              
-                  selectedColor: COLORS[1],
+                  selectedColor: COLORS[0],
                   messages: [],
                 };
         }
