@@ -1,7 +1,7 @@
 import React, {Component } from 'react'
 import { View, Text, TextInput, StyleSheet, Dimensions, Image } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import Camera from 'react-native-camera';
 
 export default class PicForm extends Component {

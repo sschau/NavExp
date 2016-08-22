@@ -5,7 +5,6 @@ import { BackAndroid,
     ToolbarAndroid,
     View, Text, ListView, TouchableHighlight, StyleSheet } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import configureStore from '../store/configureStore'
 const store = configureStore()
@@ -22,7 +21,7 @@ class Drawer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mainView: <Samples />
+            mainView: <Samples />            
         }
         this._drawer = null;
     }
@@ -149,14 +148,14 @@ class Drawer extends Component {
                     drawerPosition={DrawerLayoutAndroid.positions.Left}                                
                     renderNavigationView={this._renderDrawerContent.bind(this)}>
 
-                <Icon.ToolbarAndroid                    
-                    navIconName='md-create'                    
+                <ToolbarAndroid                    
+                    navIcon={require('./ic_menu_black_24dp.png')}                    
                     onIconClicked={() => this._drawer.openDrawer()}
                     style={styles.toolbar}
                     title='My Title'
+                    subtitle='details'
                 />
-
-
+            
                             
 
                     {this.state.mainView}

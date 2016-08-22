@@ -5,10 +5,8 @@ import {
     ScrollView, 
  } from 'react-native'
 import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view'
+import TabBar from './TabBar'
 
-
-import Recipes from '../components/Recipes'
-import Samples from '../components/Samples'
 
 import Location from '../components/Location'
 import Storage from '../components/Storage'
@@ -16,81 +14,60 @@ import PicForm from '../components/PicForm'
 import CallWS from '../components/CallWS'
 import OPWebView from '../components/OPWebView'
 import GoogleAcct from '../components/GoogleAcct'
-
 import DevConnectionInfo from '../components/DevConnectionInfo'
+import TForm from '../components/TForm'
 
 
 import Home from '../containers/navRootContainer'
 
 
+
 class Tabs extends Component {
-  _changeTab (i) {
-    const { changeTab } = this.props
-    changeTab(i)
-  }
-  _renderTabContent (key) {
-    switch (key) {
-      case 'home':
-        return <Home />
-      case 'recipes':
-        return <Recipes />
-      case 'samples':
-        return <Samples />
-    }
-  }
+
 
   render () {
     return (
        <ScrollableTabView 
-      style={styles.container}
-      renderTabBar={()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' />}
-      
-      >
-      <ScrollView tabLabel='Home' style={styles.tabView}>
-        <View style={styles.card}>
-            <Home />
-        </View>
-      </ScrollView>
-      <ScrollView tabLabel='Location' style={styles.tabView}>
-        <View style={styles.card}>
-            <Location />
-        </View>
-      </ScrollView>
-      <ScrollView tabLabel='Storage' style={styles.tabView}>
-        <View style={styles.card}>
-            <Storage />
-        </View>
-      </ScrollView>
-      <ScrollView tabLabel='PicForm' style={styles.tabView}>
-        <View style={styles.card}>
-            <PicForm />
-        </View>
-      </ScrollView>
-      <ScrollView tabLabel='CallWS' style={styles.tabView}>
-        <View style={styles.card}>
-            <CallWS />
-        </View>
-      </ScrollView>      
-      <ScrollView tabLabel='OPWebView' style={styles.tabView}>
-        <View style={styles.card}>
-            <OPWebView />
-        </View>
-      </ScrollView>      
-      <ScrollView tabLabel='SignIn' style={styles.tabView}>
-        <View style={styles.card}>
-            <GoogleAcct />
-        </View>
-      </ScrollView>      
+          style={styles.container}
+          renderTabBar={
+            () => <TabBar/>            
+           // ()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' /> 
+          }      
+        >
+          <Home tabLabel="ios-paper"/>
+          
+          <ScrollView tabLabel='md-card' style={styles.tabView}>          
+            <View style={styles.card}>          
+                <Home />
+            </View>
+          </ScrollView>
 
-      <ScrollView tabLabel='Online' style={styles.tabView}>
-        <View style={styles.card}>
-            <DevConnectionInfo />
-        </View>
-      </ScrollView>      
+          <Location tabLabel='md-car'/>
+
+          <Storage tabLabel='md-cloud-upload'/>
+
+          <PicForm tabLabel='md-camera'/>
+
+          <CallWS tabLabel='md-code-working' />
+
+
+          <OPWebView tabLabel='md-globe' />
+
+          <TForm tabLabel='md-clipboard' />
+          
+          <GoogleAcct  tabLabel='md-contact' />
+
+          <ScrollView tabLabel='md-wifi' style={styles.tabView}>
+            <View style={styles.card}>
+                <DevConnectionInfo />
+            </View>
+          </ScrollView>
+
+                
 
 
             
-             </ScrollableTabView> 
+        </ScrollableTabView> 
     )
   }
 }
@@ -122,5 +99,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },  
 });
+
 
 export default Tabs  
