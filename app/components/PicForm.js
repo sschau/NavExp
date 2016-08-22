@@ -1,6 +1,7 @@
 import React, {Component } from 'react'
 import { View, Text, TextInput, StyleSheet, Dimensions, Image } from 'react-native'
 
+import Icon from 'react-native-vector-icons/Ionicons'
 import Camera from 'react-native-camera';
 
 export default class PicForm extends Component {
@@ -39,7 +40,9 @@ export default class PicForm extends Component {
           aspect={Camera.constants.Aspect.fill}
           captureTarget={Camera.constants.CaptureTarget.disk}
           >
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[SNAP]</Text>
+          <Icon.Button name="add-a-photo" size={30} color="#4F8EF7" onPress={this.takePicture.bind(this) } >
+            <Text style={styles.capture} >[SNAP]</Text>
+            </Icon.Button>
         </Camera>
 
         <TextInput

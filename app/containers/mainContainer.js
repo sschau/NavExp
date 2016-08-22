@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+
 import { BackAndroid, 
     DrawerLayoutAndroid, 
     ToolbarAndroid,
     View, Text, ListView, TouchableHighlight, StyleSheet } from 'react-native'
 
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import configureStore from '../store/configureStore'
 const store = configureStore()
@@ -137,23 +139,22 @@ class Drawer extends Component {
                     ref={(drawer) => { this._drawer = drawer; }}                    
                     drawerWidth={300}
                     drawerBackgroundColor="rgba(0,0,0,0.9)"
-        keyboardDismissMode="on-drag"
-        onDrawerOpen={() => {
-          this._overrideBackPressForDrawerLayout = true;
-        }}
-        onDrawerClose={() => {
-          this._overrideBackPressForDrawerLayout = false;}}
-                    
+                    keyboardDismissMode="on-drag"
+                    onDrawerOpen={() => {
+                    this._overrideBackPressForDrawerLayout = true;
+                    }}
+                    onDrawerClose={() => {
+                    this._overrideBackPressForDrawerLayout = false;}}
+                                
                     drawerPosition={DrawerLayoutAndroid.positions.Left}                                
                     renderNavigationView={this._renderDrawerContent.bind(this)}>
 
-          <ToolbarAndroid
-            logo={require('./launcher_icon.png')}
-            navIcon={require('./ic_menu_black_24dp.png')}
-            onIconClicked={() => this._drawer.openDrawer()}
-            style={styles.toolbar}
-            title='title'
-          />
+                <Icon.ToolbarAndroid                    
+                    navIconName='md-create'                    
+                    onIconClicked={() => this._drawer.openDrawer()}
+                    style={styles.toolbar}
+                    title='My Title'
+                />
 
 
                             
