@@ -7,36 +7,82 @@ import {
     TouchableHighlight , 
  } from 'react-native'
 
+ 
+
+ 
  var Form = t.form.Form;
 
+Form.i18n = {
+   optional: '',
+   required: ' (req)'
+ };
+
+
  // here we are: define your domain model
+
+
+
+const Country = t.enums({
+  'IT' : 'Italy',
+  'US' : 'United States'
+}, 'Country');
+
+
+
 var Person = t.struct({
   name: t.String,              // a required string
   surname: t.maybe(t.String),  // an optional string
   age: t.Number,               // a required number
-  rememberMe: t.Boolean        // a boolean
+  rememberMe: t.Boolean,        // a boolean
+  disable: t.Boolean,
 });
 
-var options = {}; // optional rendering options (see documentation)
+var options = {
+  fields: {
+    name : {}
+  }
+}; // optional rendering options (see documentation)
 
 class TForm extends Component {
     constructor(props) {
+      const value = {};
         super(props);    
         this.state = {   
-                    formVal: {
+                    formVal: value
+                    /* 
+                    {
                        name: 'Giulio',
                       surname: 'Canti'
-                    },                                                             
+                    }*/
+                    ,
+                    formOpts : options,         
+                    formType : this.getType(value)                                                    
         }
     }
 
   componentDidMount() {
     // give focus to the name textbox
-    this.form.getComponent('name').refs.input.focus();
+    //console.log('found name component ' + this.form.getComponent('name'));
+
+//    this.form.getComponent('name').refs.input.focus();    
   }
 
   onChange(value) {
-    this.setState({formVal : value});
+    console.log('value is ' + value.disable);
+    var options = t.update(this.state.formOpts, {
+      fields: {
+        name: {
+          editable: {'$set': !value.disable}
+        }
+      }
+    }); 
+
+    const type = value.country != this.state.formVal.country?
+      this.getType(value) : this.state.formType;
+
+    this.setState({formVal : value,
+      formOpts: options,
+      formType: type});
   }
   
   clearForm() {
@@ -54,6 +100,25 @@ class TForm extends Component {
     }
   }
 
+
+  getType(value) {
+    if (value.country === 'IT') {
+      return t.struct({
+        country : Country,
+        rememberMe : t.Boolean
+      });
+    } else if (value.country === 'US') {
+      return t.struct({
+        country: Country,
+        name: t.String
+      });
+    } else {
+      return t.struct({
+        country: Country
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -62,10 +127,10 @@ class TForm extends Component {
           ref={(frm) => {
             this.form = frm;
           }}
-          type={Person}
+          type={this.state.formType}
+          options={this.state.formOpts}
           value={this.state.formVal}
-          onChange = {this.onChange.bind(this)}
-          options={options}
+          onChange = {this.onChange.bind(this)}          
         />
         <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
           <Text style={styles.buttonText}>Save</Text>
