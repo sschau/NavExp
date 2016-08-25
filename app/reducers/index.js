@@ -4,7 +4,7 @@ import tabReducer from './tabReducer'
 
 const rootReducer = combineReducers({
     tabReducer,
-  navReducer
+    navReducer
 })
 
 export default rootReducer

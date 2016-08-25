@@ -32,7 +32,7 @@ class NavRoot extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this._handleBackAction)
   }
 
-  // based on the route.key, return /load the corresponding components
+  // based on the route.key, return/load the corresponding components
   // also pass the actual navigation funtions to the components.
 
   // this define all scenes how it should be called under this navigation card stack

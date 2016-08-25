@@ -15,6 +15,8 @@ const route = {
   }
 }
 */
+
+// in each page define what is the intent (action and the target)
 const route = {
   type: 'push',
   route: {
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   container: {
+    flex: 1,
     paddingTop: 60
   }
 })

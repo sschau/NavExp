@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import {
-    View,
-    StyleSheet,
-    ScrollView, 
- } from 'react-native'
+  View,
+  StyleSheet,
+  ScrollView,
+} from 'react-native'
+
 import ScrollableTabView, {DefaultTabBar, } from 'react-native-scrollable-tab-view'
 import TabBar from './TabBar'
 
@@ -18,57 +19,161 @@ import DevConnectionInfo from '../components/DevConnectionInfo'
 import TForm from '../components/TForm'
 
 
-import Home from '../containers/navRootContainer'
+import NavRoot from '../containers/navRootContainer'
 
 
+
+// This component define all tabs and way to render them.  
+// Provide an handler to call the pass in changeTab function
+// use the tab property to render all tab. (? outside tab array only give key.  
+// Inside _renderTabContent know how to do the actual renderer based on key) 
 
 class Tabs extends Component {
 
+  // interface to call the changeTab funtion pass by parent as property
+  _changeTabHandler(obj) {
+    let tabIndex = obj.i;
 
-  render () {
+    const { changeTab } = this.props;  // extract the changeTab function from property
+    //console.log('changeTab defined? ' + changeTab);
+
+    // ** concept: reducer define/handle when changeTab happen what needs to be done. 
+    console.log('tabsRoots call external changeTab function with index ' + tabIndex);
+    changeTab(tabIndex);   // call the pass in function with tab index
+  }
+
+
+  _renderTabContent(key) {
+    switch (key) {
+      case 'ios-paper':
+        return (<ScrollView style={styles.tabView}>
+          <View style={styles.card}>
+            <NavRoot />
+          </View>
+        </ScrollView>)
+
+
+      case 'md-card':
+        // ??  direct call not working when using tab reducer?
+        return (<View style={styles.card}>
+          <NavRoot />
+        </View>)
+
+
+      case 'md-car':
+        return <Location />
+      case 'md-cloud-upload':
+        return <Storage />
+
+      case 'md-camera':
+        return <PicForm />
+
+      case 'md-code-working':
+        return <CallWS />
+
+      case 'md-globe':
+
+        return (
+          <View style={styles.card}>
+            <OPWebView />
+          </View>)
+
+      case 'md-clipboard':
+        return <TForm />
+
+      case 'md-contact':
+        return <GoogleAcct />
+
+      case 'md-wifi':
+        return (<ScrollView style={styles.tabView}>
+          <View style={styles.card}>
+            <DevConnectionInfo />
+          </View>
+        </ScrollView>)
+    }
+  }
+
+  render() {
+
+    const tabs = this.props.tabs.tabs.map((tab, i) => {
+      return (
+        <View tabLabel={tab.key} key={tab.key} >
+          {this._renderTabContent(tab.key) }
+        </View>
+      )
+    });
+
     return (
-       <ScrollableTabView 
-          style={styles.container}
-          renderTabBar={
-            () => <TabBar/>            
-           // ()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' /> 
-          }      
+      <ScrollableTabView
+        style={styles.container}
+        onChangeTab = {this._changeTabHandler.bind(this) }
+        renderTabBar={
+          // render the tab bar based on all tabs tabLabel property
+          () => <TabBar/>
+          // ()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' /> 
+        }
         >
-          <Home tabLabel="ios-paper"/>
-          
-          <ScrollView tabLabel='md-card' style={styles.tabView}>          
-            <View style={styles.card}>          
-                <Home />
-            </View>
-          </ScrollView>
+        {tabs}
 
-          <Location tabLabel='md-car'/>
-
-          <Storage tabLabel='md-cloud-upload'/>
-
-          <PicForm tabLabel='md-camera'/>
-
-          <CallWS tabLabel='md-code-working' />
+      </ScrollableTabView>
 
 
-          <OPWebView tabLabel='md-globe' />
-
-          <TForm tabLabel='md-clipboard' />
-          
-          <GoogleAcct  tabLabel='md-contact' />
-
-          <ScrollView tabLabel='md-wifi' style={styles.tabView}>
-            <View style={styles.card}>
-                <DevConnectionInfo />
-            </View>
-          </ScrollView>
-
-                
-
-
-            
-        </ScrollableTabView> 
     )
+
+
+
+
+
+
+    /* without redux 
+    
+        return (
+           <ScrollableTabView 
+              style={styles.container}
+              renderTabBar={
+                () => <TabBar/>            
+               // ()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' /> 
+              }      
+            >
+                        
+              <Home tabLabel="ios-paper"/>
+              
+              <ScrollView tabLabel='md-card' style={styles.tabView}>          
+                <View style={styles.card}>          
+                    <Home />
+                </View>
+              </ScrollView>
+    
+              <Location tabLabel='md-car'/>
+    
+              <Storage tabLabel='md-cloud-upload'/>
+    
+              <PicForm tabLabel='md-camera'/>
+    
+              <CallWS tabLabel='md-code-working' />
+    
+    
+              <OPWebView tabLabel='md-globe' />
+    
+              <TForm tabLabel='md-clipboard' />
+              
+              <GoogleAcct  tabLabel='md-contact' />
+    
+              <ScrollView tabLabel='md-wifi' style={styles.tabView}>
+                <View style={styles.card}>
+                    <DevConnectionInfo />
+                </View>
+              </ScrollView>
+    
+                    
+    
+    
+                
+            </ScrollableTabView> 
+        )
+    */
+
+
   }
 }
 
@@ -97,7 +202,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2, },
     shadowOpacity: 0.5,
     shadowRadius: 3,
-  },  
+  },
 });
 
 
