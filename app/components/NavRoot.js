@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 
 
 // import all components in this card stack
@@ -102,6 +102,12 @@ class NavRoot extends Component {
         renderScene={this._renderScene} />
       )
    }
+}
+
+NavRoot.propTypes = {
+  navigation : PropTypes.object.isRequired,
+  pushRoute : PropTypes.func.isRequired,
+  popRoute : PropTypes.func.isRequired  
 }
 
 export default NavRoot

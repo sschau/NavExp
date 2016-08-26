@@ -15,12 +15,10 @@ const tabs = [
 
 const initialState = {
   tabIndex: 0,
-  tabs
+//  tabs
 }
 
-function tabsNav (state = initialState, action) {
-  console.log('In TabReducer: tabsNav action index ' + action.index);
-  
+function tabsNav (state = initialState, action) {    
   if (action.index === state.index) return state
   
   switch (action.type) {

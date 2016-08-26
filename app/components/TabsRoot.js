@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -19,7 +19,8 @@ import DevConnectionInfo from '../components/DevConnectionInfo'
 import TForm from '../components/TForm'
 
 
-import NavRoot from '../containers/navRootContainer'
+import NavContainer from '../containers/navRootContainer'
+import MovieContainer from '../containers/movieContainer'
 
 
 
@@ -48,7 +49,7 @@ class Tabs extends Component {
       case 'ios-paper':
         return (<ScrollView style={styles.tabView}>
           <View style={styles.card}>
-            <NavRoot />
+            <NavContainer />
           </View>
         </ScrollView>)
 
@@ -56,7 +57,7 @@ class Tabs extends Component {
       case 'md-card':
         // ??  direct call not working when using tab reducer?
         return (<View style={styles.card}>
-          <NavRoot />
+          <NavContainer />
         </View>)
 
 
@@ -69,7 +70,8 @@ class Tabs extends Component {
         return <PicForm />
 
       case 'md-code-working':
-        return <CallWS />
+        //return <CallWS />
+        return <MovieContainer />
 
       case 'md-globe':
 
@@ -95,7 +97,8 @@ class Tabs extends Component {
 
   render() {
 
-    const tabs = this.props.tabs.tabs.map((tab, i) => {
+    //const tabs = this.props.tabR.tabs.map((tab, i) => {
+    const tabs = this.props.tabs.map((tab, i) => {
       return (
         <View tabLabel={tab.key} key={tab.key} >
           {this._renderTabContent(tab.key) }
@@ -205,5 +208,11 @@ const styles = StyleSheet.create({
   },
 });
 
+
+
+Tabs.propTypes = {
+  tabR : PropTypes.object.isRequired,
+  changeTab : PropTypes.func.isRequired,    
+}
 
 export default Tabs  

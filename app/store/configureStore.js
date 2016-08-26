@@ -6,12 +6,12 @@ import rootReducer from '../reducers'
 export default function configureStore() {
   const logger = createLogger();
   const store = createStore(
-    rootReducer, 
+    rootReducer,
     applyMiddleware(
-      thunk, 
+      thunk,
       logger  // must be the last one
-      )
     )
+  )
 
   if (module.hot) {
     module.hot.accept(() => {
