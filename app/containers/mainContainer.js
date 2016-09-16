@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { BackAndroid,
     DrawerLayoutAndroid,
-    ToolbarAndroid,
+    ToolbarAndroid, ToastAndroid,
     View, Text, ListView, TouchableHighlight, StyleSheet } from 'react-native'
 
 
@@ -27,13 +27,20 @@ class Drawer extends Component {
             mainView: <Samples />
         }
         this._drawer = null;
+        this.lastBackPressed = Date.now();
     }
 
     componentWillMount() {
         BackAndroid.addEventListener('hardwareBackPress', this._handleBackButtonPress.bind(this));
     }
 
+  componentWillUnmount() {
+    if (Platform.OS === 'android') {
+      BackAndroid.removeEventListener('hardwareBackPress', this._handleBackButtonPress.bind(this));
+    }
+  }
 
+  
     _handleBackButtonPress() {
         if (this._overrideBackPressForDrawerLayout) {
             // This hack is necessary because drawer layout provides an imperative API
@@ -41,7 +48,14 @@ class Drawer extends Component {
             // layout provided an `isOpen` prop and allowed us to pass a `onDrawerClose` handler.
             this._drawer && this._drawer.closeDrawer();
             return true;
+        } else if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+            //press in 2 secs
+            return false;
         }
+            this.lastBackPressed = Date.now();
+            ToastAndroid.showWithGravity('Press one more to exit', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+            // BackAndroid.exitApp();
+            return true; 
     }
 
 
